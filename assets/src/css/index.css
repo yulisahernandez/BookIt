@@ -1,0 +1,27 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+:root {
+    --primaryFont: 'Roboto', sans-serif;
+    --secondaryfont: 'pacifico', cursive;
+    --thirdFont: 'Dancing Script' cursive;
+    --primarytexcolor:#FFFF; 
+    --sm: 400;
+    --md: 500;
+    --ig: 700;
+}
+
+html {
+    font-size: var(--primaryFont);
+    font-size: 62.5%;
+} 
+
+
+.input {
+    height: 30px;
+    border: none;
+    outline: none;
+}
