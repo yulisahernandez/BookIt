@@ -7,7 +7,7 @@
 :root {
     --primaryFont: 'Roboto', sans-serif;
     --secondaryfont: 'pacifico', cursive;
-    --thirdFont: 'Dancing Script' cursive;
+    --thirdFont: 'Dancing Script', cursive;
     --primarytexcolor:#FFFF; 
     --sm: 400;
     --md: 500;
@@ -24,4 +24,5 @@ html {
     height: 30px;
     border: none;
     outline: none;
+    border-radius: 5px;
 }
