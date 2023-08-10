@@ -23,6 +23,15 @@ html {
 .input {
     height: 30px;
     border: none;
-    outline: none;
-    border-radius: 5px;
+    outline: none;  
+    border-radius: 0.5rem;  
+}  
+
+.hotelsSection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+    padding-top: 0.8rem;
 }
+
