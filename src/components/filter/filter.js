@@ -1,4 +1,6 @@
 import { requestHotelData } from "../../utils/request.js";
+import { rendercards } from "../cards/card.js";
+
 
 const countriesInpunt = document.getElementById("countriesInpunt");
 const checkinInpunt = document.getElementById("chekinInpunt");
@@ -23,3 +25,41 @@ export const hotelsFiltered = async () => {
     return filteredHotels;
   };
   
+
+
+  export function filterHotelsByDates() {
+    const dateIn = document.getElementById("chekinInpunt").value;
+    const dateOut = document.getElementById("checkoutInpunt").value;
+    const existDates = dateIn && dateOut;
+    const fechaHoy = new Date().setHours(0, 0, 0, 0);
+  
+    function dateDefault(date) {
+      return date == false ? fechaHoy : date;
+    }
+  
+    const dateCheckIn = new Date(dateDefault(dateIn));
+    const dateCheckInLocal = new Date(
+      dateCheckIn.getTime() + dateCheckIn.getTimezoneOffset() * 60000
+    );
+    const dateCheckOut = new Date(dateDefault(dateOut));
+    const dateCheckOutLocal = new Date(
+      dateCheckOut.getTime() + dateCheckOut.getTimezoneOffset() * 60000
+    );
+  
+    const filteredHotels = hotelsFiltered().filter(({ availabilityFrom, availabilityTo }) => {
+      const availabilityHoltes = fechaHoy + availabilityFrom;
+  
+      const availabilityDays = availabilityHoltes + availabilityTo;
+      return (
+        dateCheckInLocal.getTime() >= availabilityHoltes &&
+        dateCheckOutLocal.getTime() <= availabilityDays
+      );
+    });
+  
+    if (filteredHotels.length > 0) {
+      rendercards(filteredHotels);
+    } else {
+      document.querySelector(".main").innerHTML =
+        "We're sorry, there are no hotels available on these dates";
+    }
+  }
