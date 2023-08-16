@@ -5,6 +5,7 @@ const pricesInpunt = document.getElementById("pricesInpunt");
 
 
 const hotelsData = await requestHotelData();
+
 export const hotelsFilterPrice = async () => {
 
   const filteredHotels = hotelsData.filter((element) => {
@@ -19,8 +20,13 @@ export const hotelsFilterPrice = async () => {
 
 // todo filtro fechas
 
-export const filterHotelsDates = (hotelsData, checkinInpunt, checkoutInpunt) => {
-  const existDates = checkinInpunt && checkoutInpunt;
+
+export const filterHotelsDates = (checkinInpunt, checkoutInpunt) => {
+  if (!checkinInpunt || !checkoutInpunt) {
+    // Si no hay fechas de check-in y check-out seleccionadas, retornar todos los hoteles.
+    return hotelsData;
+  }
+
   const fechaHoy = new Date().setHours(0, 0, 0, 0);
 
   const dateDefault = (date) => {
@@ -50,13 +56,11 @@ export const filterHotelsDates = (hotelsData, checkinInpunt, checkoutInpunt) => 
 
 
 export const hotelsFiltered = async (checkinInpunt, checkoutInpunt) => {
-  const hotelsData = await requestHotelData();
 
 
+  const filterPrice = hotelsFilterPrice()
 
-
-  const filterPrice = await hotelsFilterPrice()
-
-  const filteredByDates = filterHotelsDates(hotelsData, checkinInpunt, checkoutInpunt);
-  return filteredByDates && filterPrice;
+  const filteredByDates = filterHotelsDates(checkinInpunt, checkoutInpunt);
+  console.log('dates', filteredByDates), console.log('prices', filterPrice);
+  return filteredByDates && filterPrice
 };
