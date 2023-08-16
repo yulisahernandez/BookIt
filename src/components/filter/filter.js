@@ -1,65 +1,62 @@
 import { requestHotelData } from "../../utils/request.js";
-import { rendercards } from "../cards/card.js";
 
-
-const countriesInpunt = document.getElementById("countriesInpunt");
-const checkinInpunt = document.getElementById("chekinInpunt");
-const checkoutInpunt = document.getElementById("checkoutInpunt");
 const pricesInpunt = document.getElementById("pricesInpunt");
 
-export const hotelsFiltered = async () => {
-    const hotelsData = await requestHotelData();
-  
-    const filteredHotels = hotelsData.filter((element) => {
-      if (countriesInpunt.value !== "all" && element.country !== countriesInpunt.value) {
-        return false;
-      }
-      if (pricesInpunt.value !== "" && element.price !== pricesInpunt.value.length) {
-        return false;
-      }
-      // Puedes agregar más condiciones de filtrado aquí si es necesario (chequeo de fechas, tamaño, etc.).
-      
-      return true;
-    });
-  
-    return filteredHotels;
-  };
-  
 
 
-  export function filterHotelsByDates() {
-    const dateIn = document.getElementById("chekinInpunt").value;
-    const dateOut = document.getElementById("checkoutInpunt").value;
-    const existDates = dateIn && dateOut;
-    const fechaHoy = new Date().setHours(0, 0, 0, 0);
-  
-    function dateDefault(date) {
-      return date == false ? fechaHoy : date;
+const hotelsData = await requestHotelData();
+export const hotelsFilterPrice = async () => {
+
+  const filteredHotels = hotelsData.filter((element) => {
+    if (pricesInpunt.value !== "all" && element.price !== pricesInpunt.value.length) {
+      return false;
     }
-  
-    const dateCheckIn = new Date(dateDefault(dateIn));
-    const dateCheckInLocal = new Date(
-      dateCheckIn.getTime() + dateCheckIn.getTimezoneOffset() * 60000
-    );
-    const dateCheckOut = new Date(dateDefault(dateOut));
-    const dateCheckOutLocal = new Date(
-      dateCheckOut.getTime() + dateCheckOut.getTimezoneOffset() * 60000
-    );
-  
-    const filteredHotels = hotelsFiltered().filter(({ availabilityFrom, availabilityTo }) => {
-      const availabilityHoltes = fechaHoy + availabilityFrom;
-  
-      const availabilityDays = availabilityHoltes + availabilityTo;
-      return (
-        dateCheckInLocal.getTime() >= availabilityHoltes &&
-        dateCheckOutLocal.getTime() <= availabilityDays
-      );
-    });
-  
-    if (filteredHotels.length > 0) {
-      rendercards(filteredHotels);
-    } else {
-      document.querySelector(".main").innerHTML =
-        "We're sorry, there are no hotels available on these dates";
-    }
+
+
+    return true;
+  }); return filteredHotels
+};
+
+// todo filtro fechas
+
+export const filterHotelsDates = (hotelsData, checkinInpunt, checkoutInpunt) => {
+  const existDates = checkinInpunt && checkoutInpunt;
+  const fechaHoy = new Date().setHours(0, 0, 0, 0);
+
+  const dateDefault = (date) => {
+    return date == false ? fechaHoy : date;
   }
+
+  const dateCheckIn = new Date(dateDefault(checkinInpunt));
+  const dateCheckInLocal = new Date(
+    dateCheckIn.getTime() + dateCheckIn.getTimezoneOffset() * 60000
+  );
+  const dateCheckOut = new Date(dateDefault(checkoutInpunt));
+  const dateCheckOutLocal = new Date(
+    dateCheckOut.getTime() + dateCheckOut.getTimezoneOffset() * 60000
+  );
+
+  const filterDate = hotelsData.filter(({ availabilityFrom, availabilityTo }) => {
+    const availabilityHoltes = fechaHoy + availabilityFrom;
+    const availabilityDays = availabilityHoltes + availabilityTo;
+    return (
+      dateCheckInLocal.getTime() >= availabilityHoltes &&
+      dateCheckOutLocal.getTime() <= availabilityDays
+    );
+  });
+
+  return filterDate;
+};
+
+
+export const hotelsFiltered = async (checkinInpunt, checkoutInpunt) => {
+  const hotelsData = await requestHotelData();
+
+
+
+
+  const filterPrice = await hotelsFilterPrice()
+
+  const filteredByDates = filterHotelsDates(hotelsData, checkinInpunt, checkoutInpunt);
+  return filteredByDates && filterPrice;
+};
