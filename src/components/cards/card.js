@@ -47,7 +47,7 @@ export const rendercards = (hotels) => {
                 <div class="card__box"> 
                     <img class="card__flag" src="${selectFlag(element.country)}" alt="Flag of ${element.country}">
                     <p class="card__country">${element.country}</p>
-                    <p class="card__roomsandprice">${element.rooms} rooms - <span> ${selectPrice(element.price)}</span></p>
+                    <p class="card__roomsandprice">${element.rooms} rooms - <span class="priceHotels" ${selectPrice(element.price)}</span></p>
                 </div>
                 <button class="card__btn" id="clearFiltersBtn">Book it!</button> 
         `;
