@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Pacifico:400&subset=cyrillic,cyrillic-ext,latin,latin-ext,vietnamese"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin,latin-ext,vietnamese"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="https://fonts.googleapis.com/css?family=Dancing+Script:400,500,600,700&subset=latin,latin-ext,vietnamese"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link rel="stylesheet" href="./src/css/hearder.css" />
+        <link rel="stylesheet" href="./src/css/index.css" />
+        <link rel="stylesheet" href="./src/css/card.css" />
+        <title>BoookIt</title>
+    </head>
+    <body>
+        <header class="header">
+            <h1 class="header__title">Bookt it</h1>
+            <div class="filtersBox">
+                <select class="filtersBox__country input" id="countriesInpunt">
+                    <option value="all" selected>All Contries</option>
+                    <option value="argentina">Argentina</option>
+                    <option value="brasil">Brasil</option>
+                    <option value="chile">Chile</option>
+                    <option value="uruguay">Uruguay</option>
+                </select>
+
+                <input
+                    class="filtersBox__input input"
+                    type="date"
+                    id="chekinInpunt"
+                />
+                <input
+                    class="filtersBox__input input"
+                    type="date"
+                    id="checkoutInpunt"
+                />
+
+                <select class="filtersBox__input input" id="pricesInpunt">
+                    <option value="all" selected>All princes</option>
+                    <option value="$">$</option>
+                    <option value="$$">$$</option>
+                    <option value="$$$">$$$</option>
+                    <option value="$$$$">$$$$</option>
+                </select>
+
+                <select ion class="filtersBox__input input" id="sizesInpunt">
+                    <option value="all" selected>All sizes</option>
+                    <option value="smal">Smal</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+
+                <button class="filtersBox__btn">Clear</button>
+            </div>
+            <h2 class="header__subtitle">We have found for you...</h2>
+            <p class="header__filterDercription">
+                Small budget-priced hotels from September 03, 2023 to february
+                14, 2021 in Argentina
+            </p>
+        </header>
+        <main>
+            <section class="hotelsSection" id="hotelsSection"></section>
+        </main>
+        <script type="module" src="./src/index.js"></script>
+    </body>
+</html>
